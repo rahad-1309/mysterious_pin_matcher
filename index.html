@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="generatePinInput" class="form-control" type="text">
+                    <button id="generatePin" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="pinInput" class="form-control" type="text">
+                    <div id="pin" class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button">7</div>
+                              <div class="button">8</div>
+                              <div class="button">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button">4</div>
+                              <div class="button">5</div>
+                              <div class="button">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button">1</div>
+                              <div class="button">2</div>
+                              <div class="button">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button">B</div>
+                                <div class="button">0</div>
+                                <div class="button">C</div>
+                            </div>
+                            <div>
+                                <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="pinNotMatched" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="pinMatched" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+ <script>
+    const generatePin= document.getElementById('generatePin').addEventListener('click',function(){
+       
+        const randomPin = (Math.random()*10000+'').split('.')[0];
+        const newRandomPin=parseInt(randomPin);
+        console.log(newRandomPin);
+        document.getElementById('generatePinInput').value=newRandomPin;
+    })
+
+    const pin=document.getElementById('pin').addEventListener('click',function(event){
+         const digit=event.target.innerText;
+         console.log(digit);
+         if(isNaN(digit)){
+             //handle backspace
+             //handle clear
+         }
+         else{
+             const pinInput =document.getElementById('pinInput');
+             pinInput.value= pinInput.value+digit;
+         }
+
+    })
+    const submitBtn =document.getElementById('submitBtn').addEventListener('click',function(){
+        const pinFrom=document.getElementById('generatePinInput').value;
+        const pinTo=document.getElementById('pinInput').value;
+        if(pinFrom===pinTo){
+          const confirmation=  document.getElementById('pinMatched');
+          confirmation.style.display='block';
+          const notConfirmed=document.getElementById('pinNotMatched');
+            notConfirmed.style.display='none';
+
+        }
+        else { 
+            const confirmation=  document.getElementById('pinMatched');
+            confirmation.style.display='none';
+
+            const notConfirmed=document.getElementById('pinNotMatched');
+            notConfirmed.style.display='block';
+        }
+    })
+
+   
+ </script>
+
+</body>
+</html>
